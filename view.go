@@ -35,7 +35,7 @@ func (a *App) view(c *ui.Context) {
 	// A command from the menu bar that needs the view runs here.
 	if a.copyRequested {
 		a.copyRequested = false
-		c.WriteClipboard(a.shownText())
+		c.WriteClipboard(a.copyText())
 		c.Toast("Copied")
 	}
 

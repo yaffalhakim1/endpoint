@@ -78,7 +78,7 @@ func (a *App) answeredResponse(c *ui.Context, t *ui.Theme) {
 			ui.Spacer(c)
 
 			if ui.Button(c, "Copy").Clicked() {
-				c.WriteClipboard(a.shownText())
+				c.WriteClipboard(a.copyText())
 				c.Toast("Copied")
 			}
 			if a.responseTab == 0 && ui.Button(c, "Wrap").Clicked() {
@@ -132,7 +132,22 @@ func (a *App) statusBadge(c *ui.Context, t *ui.Theme, result Result, failed bool
 		})
 }
 
-// shownText is what the pane shows and what Copy puts on the clipboard.
+// copyText is the whole answer, however much of it the pane shows.
+func (a *App) copyText() string {
+	if a.responseTab == 1 {
+		return a.headerText()
+	}
+	if a.result.Err != "" {
+		return a.result.Err
+	}
+	if len(a.result.Body) == 0 {
+		return "This response has no body."
+	}
+	return BodyPreview(a.result.Body)
+}
+
+// shownText is what the pane shows: the body, cut short when it is huge, or
+// the headers.
 func (a *App) shownText() string {
 	if a.responseTab == 1 {
 		return a.headerText()
@@ -140,12 +155,22 @@ func (a *App) shownText() string {
 	return a.bodyText()
 }
 
+// maxRendered caps what the editor is asked to lay out: a body far larger
+// than this would freeze the window while it styles every line.
+const maxRendered = 2 << 20
+
 func (a *App) bodyText() string {
 	if a.result.Err != "" {
 		return a.result.Err
 	}
 	if len(a.result.Body) == 0 {
 		return "This response has no body."
+	}
+
+	if len(a.result.Body) > maxRendered {
+		note := "\n\n… the body is " + FormatSize(len(a.result.Body)) + "; the first " +
+			FormatSize(maxRendered) + " are shown. Copy takes all of it."
+		return string(a.result.Body[:maxRendered]) + note
 	}
 	return BodyPreview(a.result.Body)
 }
