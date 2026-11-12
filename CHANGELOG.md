@@ -33,3 +33,8 @@ The first build anyone else can run.
   `internal/app` is the window, `internal/request` sends, and
   `internal/workspace` owns the document and its recovery
 - The landing page is published at https://yaffalhakim1.github.io/endpoint/
+
+## 0.3.1
+
+- The app builds again: `main` in `mygo.json` is `./cmd/endpoint`, which the
+  CLI reads as a package rather than a standard library import

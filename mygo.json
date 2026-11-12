@@ -1,9 +1,9 @@
 {
   "name": "Endpoint",
   "identifier": "com.example.endpoint",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
-  "main": "cmd/endpoint",
+  "main": "./cmd/endpoint",
   "out": "build",
   "linux": { "webview": false }
 }
