@@ -62,6 +62,11 @@ type App struct {
 	sidebarHidden bool
 	copyRequested bool
 
+	// recovered says what happened to the workspace when it opened, and
+	// alert is the message the window shows about it.
+	recovered recovery
+	alert     Alert
+
 	// answer is the read-only editor of the last response, with its folding.
 	answer *editor.State
 
@@ -87,18 +92,17 @@ type App struct {
 	editedAt time.Time
 }
 
-// NewApp loads the document and starts on its first request.
+// NewApp loads the document and starts on its first request. Only a broken
+// install, not a broken workspace, stops it: the workspace is recovered from
+// its backup or started fresh, and the user is told in the window.
 func NewApp(dir string) (*App, error) {
-	doc, err := loadDocument(dir)
-	if err != nil {
-		return nil, err
-	}
-
 	if err := registerFonts(); err != nil {
 		return nil, err
 	}
 
-	app := &App{dir: dir, doc: doc, client: &http.Client{}, state: StateEmpty, requestHeight: 200}
+	doc, recovered := loadDocument(dir)
+
+	app := &App{dir: dir, doc: doc, client: &http.Client{}, state: StateEmpty, requestHeight: 200, recovered: recovered}
 	app.selectFirst()
 	return app, nil
 }

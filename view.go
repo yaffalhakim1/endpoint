@@ -16,6 +16,22 @@ func (a *App) view(c *ui.Context) {
 		c.After(400 * time.Millisecond)
 	}
 
+	// A workspace that had to be recovered says so, once, in the window.
+	if a.recovered.Message != "" {
+		message := a.recovered.Message
+		if a.recovered.Saved != "" {
+			message += "\nCopy it somewhere safe, then delete it."
+		}
+		a.recovered.Message = "" // said once, not on every frame
+		go func() {
+			if a.win != nil {
+				a.win.Update(func() {
+					a.alert = Alert{Open: true, Title: "The workspace was recovered", Body: message}
+				})
+			}
+		}()
+	}
+
 	// A command from the menu bar that needs the view runs here.
 	if a.copyRequested {
 		a.copyRequested = false
@@ -34,6 +50,7 @@ func (a *App) view(c *ui.Context) {
 		})
 		a.dialogs(c, t)
 		a.varsDialog(c, t)
+		a.alertDialog(c, t)
 	})
 }
 
