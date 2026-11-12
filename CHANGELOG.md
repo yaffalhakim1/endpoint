@@ -15,3 +15,14 @@ The first build anyone else can run.
   keeps a backup of the previous save, and starts fresh with a message rather than
   failing when a file is damaged
 - A menu bar with every command and its shortcut
+
+## 0.2.0
+
+- The workspace is sealed with AES-GCM, under a key in the system credential store
+- A backup of the previous save is kept, and a damaged workspace opens from it
+- A workspace that cannot be read at all is kept as `.damaged` and the app starts
+  fresh, saying so in the window
+- Projects and environments can be renamed and deleted, with a confirmation
+- A huge response is cut for the pane, with all of it on the clipboard
+- About names the build and the workspace path
+- MIT licence, and the release workflow runs the suite on every platform
