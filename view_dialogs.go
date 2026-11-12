@@ -58,6 +58,14 @@ func dialogLabels(kind dialogKind) (title string, primary string) {
 		return "New environment", "Create"
 	case dialogNewProject:
 		return "New project", "Create"
+	case dialogRenameProject:
+		return "Rename project", "Rename"
+	case dialogDeleteProject:
+		return "Delete project?", "Delete"
+	case dialogRenameEnv:
+		return "Rename environment", "Rename"
+	case dialogDeleteEnv:
+		return "Delete environment?", "Delete"
 	case dialogDeleteRequest:
 		return "Delete request?", "Delete"
 	case dialogDeleteFolder:
@@ -80,6 +88,14 @@ func (a *App) deleteMessage() string {
 			if a.dialogIndex < len(requests) {
 				return "“" + displayName(requests[a.dialogIndex]) + "” is removed for good. This cannot be undone."
 			}
+		}
+	case dialogDeleteProject:
+		return "“" + project.Name + "” and its " + plural(project.CountRequests(), "request") +
+			" are removed for good. This cannot be undone."
+	case dialogDeleteEnv:
+		if active := project.ActiveEnvironment(); active != nil {
+			return "“" + active.Name + "” and its " + plural(len(active.Vars), "variable") +
+				" are removed for good. This cannot be undone."
 		}
 	case dialogDeleteFolder:
 		if a.dialogFolder < len(project.Folders) {

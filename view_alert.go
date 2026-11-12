@@ -3,7 +3,10 @@ package main
 // A plain message the app has to say: what went wrong, and what to do about
 // it. It is not for questions; those are dialogs.
 
-import "github.com/egoist/mygo/ui"
+import (
+	"github.com/egoist/mygo"
+	"github.com/egoist/mygo/ui"
+)
 
 // Alert is a message shown over the window.
 type Alert struct {
@@ -28,4 +31,16 @@ func (a *App) alertDialog(c *ui.Context, t *ui.Theme) {
 			})
 		})
 	})
+}
+
+// showAbout names the build and where its workspace lives, which is what a
+// bug report needs.
+func (a *App) showAbout() {
+	a.alert = Alert{
+		Open:  true,
+		Title: "Endpoint " + mygo.App.Version(),
+		Body: "A desktop HTTP client in Go.\n\n" +
+			"Workspace: " + a.dir + "\n" +
+			"MIT licensed. Type: Inter and Geist Mono, under the SIL Open Font License.",
+	}
 }

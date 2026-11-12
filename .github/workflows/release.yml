@@ -35,8 +35,13 @@ jobs:
         if: matrix.name == 'Windows'
         run: sudo apt-get update && sudo apt-get install -y nsis
 
-      - name: Test
+      - name: Check formatting and vet
         if: matrix.name == 'Linux'
+        run: test -z "$(gofmt -l .)" && go vet ./...
+
+      - name: Test
+        # No -race: MyGo builds with cgo off, and the race detector needs a
+        # C toolchain. The suite is single-threaded by design.
         run: go test ./...
 
       - name: Build

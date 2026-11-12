@@ -112,3 +112,37 @@ func (a *App) varsTitle() string {
 	}
 	return "Project variables"
 }
+
+// RenameEnvironment renames the active one.
+func (a *App) RenameEnvironment(name string) {
+	project := a.doc.ActiveProject()
+	active := project.ActiveEnvironment()
+	name = strings.TrimSpace(name)
+	if project == nil || active == nil || name == "" {
+		return
+	}
+	active.Name = name
+	a.save()
+}
+
+// DeleteEnvironment removes the active one and leaves the project with none.
+func (a *App) DeleteEnvironment() {
+	project := a.doc.ActiveProject()
+	active := project.ActiveEnvironment()
+	if project == nil || active == nil {
+		return
+	}
+
+	kept := make([]Environment, 0, len(project.Environments)-1)
+	for _, environment := range project.Environments {
+		if environment.ID != active.ID {
+			kept = append(kept, environment)
+		}
+	}
+	project.Environments = kept
+	project.ActiveEnv = ""
+	if len(kept) > 0 {
+		project.ActiveEnv = kept[0].ID
+	}
+	a.save()
+}

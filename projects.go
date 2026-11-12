@@ -36,3 +36,36 @@ func (a *App) ProjectNames() []string {
 	}
 	return names
 }
+
+// RenameProject renames the active project.
+func (a *App) RenameProject(name string) {
+	project := a.doc.ActiveProject()
+	name = strings.TrimSpace(name)
+	if project == nil || name == "" {
+		return
+	}
+	project.Name = name
+	a.save()
+}
+
+// DeleteProject removes the active project with everything in it, and leaves
+// the rail on whatever project is left.
+func (a *App) DeleteProject() {
+	project := a.doc.ActiveProject()
+	if project == nil || len(a.doc.Projects) < 2 {
+		return // the last project stays: the app always has one
+	}
+
+	kept := make([]Project, 0, len(a.doc.Projects)-1)
+	for _, other := range a.doc.Projects {
+		if other.ID != project.ID {
+			kept = append(kept, other)
+		}
+	}
+	a.doc.Projects = kept
+	a.doc.Active = kept[0].ID
+	a.detach()
+	a.selectFirst()
+	a.state = StateEmpty
+	a.save()
+}

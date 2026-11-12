@@ -35,13 +35,23 @@ func (a *App) appTheme(c *ui.Context) *ui.Theme {
 	if dark {
 		t = ui.DarkTheme()
 	}
-	applyTokens(t, a.tok)
+	applyTokens(t, a.tok, textScale(c))
 	t.TooltipDelay = 400 * time.Millisecond
 	return t
 }
 
+// textScale is how much larger the desktop asks text to be: 1 when it asks
+// for nothing, which is what a window with no such setting reports.
+func textScale(c *ui.Context) float32 {
+	scale := c.Preferences().TextScale
+	if scale <= 0 {
+		return 1
+	}
+	return scale
+}
+
 // applyTokens hands the roles to the widgets, which know nothing of them.
-func applyTokens(t *ui.Theme, tok tokens) {
+func applyTokens(t *ui.Theme, tok tokens, scale float32) {
 	t.Background = tok.Canvas
 	t.Surface = tok.Base
 	t.SurfaceHover = tok.Fill
@@ -73,7 +83,7 @@ func applyTokens(t *ui.Theme, tok tokens) {
 	t.FocusRingWidth = 2
 	t.FocusRingOffset = 1
 	t.Radius = 7
-	t.FontSize = 13
+	t.FontSize = 13 * scale
 	t.Font = uiFont
 	t.Spacing = 4
 }

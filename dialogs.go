@@ -12,6 +12,10 @@ const (
 	dialogNewFolder     dialogKind = "new-folder"
 	dialogNewEnv        dialogKind = "new-environment"
 	dialogNewProject    dialogKind = "new-project"
+	dialogRenameProject dialogKind = "rename-project"
+	dialogDeleteProject dialogKind = "delete-project"
+	dialogRenameEnv     dialogKind = "rename-environment"
+	dialogDeleteEnv     dialogKind = "delete-environment"
 	dialogDeleteRequest dialogKind = "delete-request"
 	dialogDeleteFolder  dialogKind = "delete-folder"
 )
@@ -55,6 +59,33 @@ func (a *App) openNewProject() {
 	a.dialogOpen = true
 }
 
+func (a *App) openRenameProject() {
+	a.dialog, a.dialogValue = dialogRenameProject, a.Project().Name
+	a.dialogOpen = true
+}
+
+func (a *App) openDeleteProject() {
+	a.dialog = dialogDeleteProject
+	a.dialogOpen = true
+}
+
+func (a *App) openRenameEnvironment() {
+	environment := a.Project().ActiveEnvironment()
+	if environment == nil {
+		return
+	}
+	a.dialog, a.dialogValue = dialogRenameEnv, environment.Name
+	a.dialogOpen = true
+}
+
+func (a *App) openDeleteEnvironment() {
+	if a.Project().ActiveEnvironment() == nil {
+		return
+	}
+	a.dialog = dialogDeleteEnv
+	a.dialogOpen = true
+}
+
 func (a *App) openDeleteRequest(folder, index int) {
 	a.dialog, a.dialogFolder, a.dialogIndex = dialogDeleteRequest, folder, index
 	a.dialogOpen = true
@@ -80,6 +111,14 @@ func (a *App) confirm() {
 		a.AddEnvironment(name)
 	case dialogNewProject:
 		a.AddProject(name)
+	case dialogRenameProject:
+		a.RenameProject(name)
+	case dialogDeleteProject:
+		a.DeleteProject()
+	case dialogRenameEnv:
+		a.RenameEnvironment(name)
+	case dialogDeleteEnv:
+		a.DeleteEnvironment()
 	case dialogDeleteRequest:
 		a.deleteRequest(a.dialogFolder, a.dialogIndex)
 	case dialogDeleteFolder:

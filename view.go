@@ -172,11 +172,24 @@ func (a *App) appMenu(c *ui.Context, t *ui.Theme) {
 			if m.Item("New Request").Chosen() {
 				_ = a.NewRequest()
 			}
+			if m.Item("New Project…").Chosen() {
+				a.openNewProject()
+			}
+			if m.Item("Rename Project…").Chosen() {
+				a.openRenameProject()
+			}
+			if m.Item("Delete Project…").Chosen() {
+				a.openDeleteProject()
+			}
 			if m.Item("New Folder…").Chosen() {
 				a.openNewFolder()
 			}
 			if m.Item("Project Variables…").Chosen() {
 				a.varsOpen = true
+			}
+			m.Separator()
+			if m.Item("About Endpoint").Chosen() {
+				a.showAbout()
 			}
 		})
 		m.Submenu("Request", func(m *ui.Menu) {
