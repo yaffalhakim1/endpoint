@@ -56,6 +56,19 @@ The suite stays offline. Point it at a real API when you want:
 ENDPOINT_LIVE=1 go test -run TestLive -v
 ```
 
+## Where things live
+
+```
+cmd/endpoint/      the entry point: window options, startup
+internal/app/      the window: state, views, theme, menu
+internal/request/  sending, and the formatting a response needs
+internal/workspace/ the document: projects, requests, sealing, recovery
+site/              the landing page, published to Pages
+resources/         the app icon
+```
+
+`workspace` knows nothing about the window, and `request` knows nothing about the document beyond its types. Tests sit beside the code they cover, and the ones that drive a window live in `internal/app`.
+
 ## Status
 
 0.2.0. It sends requests, keeps your work, and survives a damaged workspace. Signing and auto-updates come next, so the first launch on each platform shows a warning.

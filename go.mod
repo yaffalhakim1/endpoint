@@ -1,4 +1,4 @@
-module api-client
+module github.com/yaffalhakim1/endpoint
 
 go 1.27.3
 

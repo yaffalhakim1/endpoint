@@ -26,3 +26,10 @@ The first build anyone else can run.
 - A huge response is cut for the pane, with all of it on the clipboard
 - About names the build and the workspace path
 - MIT licence, and the release workflow runs the suite on every platform
+
+## 0.3.0
+
+- The code is split by responsibility: `cmd/endpoint` starts the app,
+  `internal/app` is the window, `internal/request` sends, and
+  `internal/workspace` owns the document and its recovery
+- The landing page is published at https://yaffalhakim1.github.io/endpoint/
