@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Endpoint: a desktop HTTP client, in Go</title>
+    <meta
+      name="description"
+      content="Endpoint is a desktop HTTP client written in Go with native UI. No webview, starts in a third of a second, and keeps your secrets encrypted. Windows, macOS, Linux."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="preload" href="./fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/GeistMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./style.css" />
+    <meta property="og:title" content="Endpoint: a desktop HTTP client, in Go" />
+    <meta
+      property="og:description"
+      content="Native UI, no webview. Starts in a third of a second and keeps your secrets encrypted."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="./icon.png" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-head">
+      <div class="wrap">
+        <a class="brand" href="/endpoint/">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect x="1.5" y="2.5" width="13" height="11" rx="2.5" stroke="currentColor" stroke-width="1.6" />
+            <path d="M6 5.5 8.5 8 6 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Endpoint
+          <span class="v">0.2.0</span>
+        </a>
+
+        <nav class="head-nav" aria-label="Sections">
+          <a href="#features">Features</a>
+          <a href="#install">Install</a>
+          <a href="#build">Build</a>
+          <a class="download" href="https://github.com/yaffalhakim1/endpoint/releases/latest">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 2v8m0 0 3-3m-3 3L5 7M3 13h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Download
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="wrap">
+        <div class="hero">
+          <h1 class="rise">A desktop HTTP client that isn't a browser.</h1>
+          <p class="rise-2">
+            Endpoint draws its own window on the GPU. No Chromium inside, so it opens in a third of a second
+            and uses about 40 MB. Projects, environments and variables, on Windows, macOS and Linux.
+          </p>
+          <div class="hero-actions rise-3">
+            <a class="download" href="https://github.com/yaffalhakim1/endpoint/releases/latest">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M8 2v8m0 0 3-3m-3 3L5 7M3 13h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Download for your platform
+            </a>
+            <a class="ghost" href="https://github.com/yaffalhakim1/endpoint">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.3c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.91.08 2.11.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+              </svg>
+              Source
+            </a>
+          </div>
+          <p class="meta rise-3">MIT licensed · Go 1.27 · No webview, no cgo</p>
+
+          <!-- The window, drawn in markup so it stays sharp and costs one request. -->
+          <div class="shot rise-3" role="img" aria-label="The Endpoint window: a sidebar of requests, a POST to an API, and the JSON answer">
+            <div class="shot-bar">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="shot-title">Create user</span>
+              <span class="shot-env">Staging</span>
+            </div>
+            <div class="shot-body">
+              <div class="shot-rail">
+                <div class="search">
+                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <circle cx="7" cy="7" r="4.2" stroke="currentColor" stroke-width="1.5" />
+                    <path d="m10.4 10.4 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                  Search
+                </div>
+                <p class="label">Collections</p>
+                <div class="folder">
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
+                    <path d="M2.5 1.2 5.5 4l-3 2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Users
+                </div>
+                <div class="req on"><span class="m post">POST</span>Create user</div>
+                <div class="req"><span class="m get">GET</span>Get user</div>
+                <div class="req"><span class="m put">PUT</span>Update user</div>
+                <div class="folder">
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
+                    <path d="M2.5 1.2 5.5 4l-3 2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Billing
+                </div>
+                <div class="req"><span class="m get">GET</span>List invoices</div>
+              </div>
+              <div class="shot-main">
+                <div class="shot-url">
+                  <span class="pill-method">POST</span>
+                  <span class="field">{{baseUrl}}/v1/users</span>
+                  <span class="pill-send">Send</span>
+                </div>
+                <div class="shot-tabs">
+                  <span>Params</span><span>Headers</span><span>Auth</span><span class="on">Body</span>
+                </div>
+                <pre class="shot-code">{
+  <span class="k">"name"</span>: <span class="s">"Ada Lovelace"</span>,
+  <span class="k">"plan"</span>: <span class="s">"pro"</span>,
+  <span class="k">"seats"</span>: <span class="n">12</span>
+}</pre>
+                <div class="shot-resp">
+                  <span class="badge-ok">201 Created</span>
+                  <span>142 ms</span>
+                  <span>1.8 KB</span>
+                </div>
+                <pre class="shot-json">{
+  <span class="k">"id"</span>: <span class="s">"usr_8f2a1c"</span>,
+  <span class="k">"plan"</span>: <span class="s">"pro"</span>,
+  <span class="k">"active"</span>: <span class="b">true</span>,
+  <span class="k">"roles"</span>: [
+    <span class="s">"admin"</span>
+  ]
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap"><div class="rule"></div></div>
+
+      <section id="features" class="wrap">
+        <h2>What it does</h2>
+        <p class="lede">
+          The parts of an API client you use every day, without the parts you skip. Everything below ships in the download.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Environments, not find and replace</h3>
+            <p>
+              Write <code>{{baseUrl}}</code> in a URL or a header. Point staging and production at different hosts
+              without touching a single request.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Secrets stay secret</h3>
+            <p>
+              The workspace is encrypted with AES-GCM under a key in your system's credential store. Nothing readable
+              sits in your profile folder.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Requests leave from Go</h3>
+            <p>
+              No CORS preflight, no forbidden headers, no browser limits. Any method, any header, any host.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Read the answer</h3>
+            <p>
+              Status, timing and size at a glance. The body folds by its braces in a code editor. Every response
+              header has its own tab.
+            </p>
+          </div>
+          <div class="card">
+            <h3>A window that behaves</h3>
+            <p>
+              Sidebar toggle, environment switcher, and the window controls, drawn by the app. Light and dark follow
+              the system.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Works when the file breaks</h3>
+            <p>
+              Each save keeps the one before it. A damaged workspace opens from the backup, and says so instead of
+              refusing to start.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap"><div class="rule"></div></div>
+
+      <section class="wrap">
+        <h2>Small on purpose</h2>
+        <p class="lede">
+          The window is drawn by the app, not by a browser engine bundled inside it. That shows up in the numbers
+          you feel.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>0.3 s</b><span>Cold start, no webview to boot</span></div>
+          <div class="stat"><b>~40 MB</b><span>Resident memory with a project open</span></div>
+          <div class="stat"><b>3</b><span>Platforms, from one codebase</span></div>
+          <div class="stat"><b>0</b><span>Webrequests to open the app</span></div>
+        </div>
+      </section>
+
+      <div class="wrap"><div class="rule"></div></div>
+
+      <section id="install" class="wrap">
+        <h2>Install</h2>
+        <p class="lede">Pick the build for your platform from the latest release. The app opens with three projects so nothing is empty.</p>
+
+        <div class="install">
+          <div class="os">
+            <h3>Windows</h3>
+            <p>Installer or a plain executable. Windows 10 and 11, x64.</p>
+            <a href="https://github.com/yaffalhakim1/endpoint/releases/latest">endpoint-setup-0.2.0-amd64.exe</a>
+          </div>
+          <div class="os">
+            <h3>macOS</h3>
+            <p>Universal, for Apple silicon and Intel. The build is unsigned: right-click the app and choose Open the first time.</p>
+            <a href="https://github.com/yaffalhakim1/endpoint/releases/latest">endpoint-0.2.0.dmg</a>
+          </div>
+          <div class="os">
+            <h3>Linux</h3>
+            <p>Debian or Fedora package, or the archive with an install script. x64.</p>
+            <a href="https://github.com/yaffalhakim1/endpoint/releases/latest">endpoint_0.2.0_amd64.deb</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap"><div class="rule"></div></div>
+
+      <section id="build" class="wrap">
+        <h2>Build it yourself</h2>
+        <p class="lede">Go 1.27 or later. No C toolchain, no Node, no build step for the interface.</p>
+        <pre class="shell"><span class="c"># run it with live reload</span>
+go tool mygo dev
+
+<span class="c"># the suite, offline by default</span>
+go test ./...
+
+<span class="c"># point it at a real API</span>
+ENDPOINT_LIVE=1 go test -run TestLive -v
+
+<span class="c"># package for this machine</span>
+go tool mygo build</pre>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>Endpoint 0.2.0</span>
+        <span>·</span>
+        <span>MIT licensed</span>
+        <span>·</span>
+        <a href="https://github.com/yaffalhakim1/endpoint">Source</a>
+        <span>·</span>
+        <a href="https://github.com/yaffalhakim1/endpoint/releases">Releases</a>
+        <span>·</span>
+        <a href="https://github.com/egoist/mygo">Built with MyGo</a>
+        <span>·</span>
+        <span>Inter and Geist Mono, under the SIL Open Font License</span>
+      </div>
+    </footer>
+  </body>
+</html>
