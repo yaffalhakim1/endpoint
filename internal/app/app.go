@@ -124,6 +124,7 @@ func New(dir string) (*App, error) {
 	doc, recovered := workspace.Load(dir)
 
 	app := &App{dir: dir, doc: doc, client: &http.Client{}, state: StateEmpty, requestHeight: 200, recovered: recovered}
+	app.themeMode = themeModeOf(loadPrefs(dir).Theme)
 	app.selectFirst()
 	return app, nil
 }

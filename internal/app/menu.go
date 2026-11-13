@@ -65,13 +65,13 @@ func (a *App) installMenu() {
 			{Type: mygo.MenuItemSeparator},
 			{Label: "Appearance", Submenu: []*mygo.MenuItem{
 				{Label: "Follow the System", Type: mygo.MenuItemRadio, Checked: a.themeMode == themeAuto, Click: a.onMenu(func() {
-					a.themeMode = themeAuto
+					a.setThemeMode(themeAuto)
 				})},
 				{Label: "Light", Type: mygo.MenuItemRadio, Checked: a.themeMode == themeLight, Click: a.onMenu(func() {
-					a.themeMode = themeLight
+					a.setThemeMode(themeLight)
 				})},
 				{Label: "Dark", Type: mygo.MenuItemRadio, Checked: a.themeMode == themeDark, Click: a.onMenu(func() {
-					a.themeMode = themeDark
+					a.setThemeMode(themeDark)
 				})},
 			}},
 			{Type: mygo.MenuItemSeparator},

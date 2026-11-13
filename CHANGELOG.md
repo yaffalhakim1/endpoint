@@ -48,3 +48,8 @@ The first build anyone else can run.
 - Import from curl, and export the workspace as readable JSON
 - Save a response, or copy the request as a curl command
 - Auto-updates from signed manifests, checked at launch
+
+## 0.4.1
+
+- The theme choice is remembered: light, dark or follow the system survives a
+  restart, in a small preferences file beside the workspace

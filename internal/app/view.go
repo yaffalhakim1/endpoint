@@ -240,7 +240,7 @@ func (a *App) appMenu(c *ui.Context, t *ui.Theme) {
 			}{{"Follow the System", themeAuto}, {"Light", themeLight}, {"Dark", themeDark}} {
 				choice := choice
 				if m.Item(choice.label).Radio(a.themeMode == choice.mode).Chosen() {
-					a.themeMode = choice.mode
+					a.setThemeMode(choice.mode)
 				}
 			}
 		})
