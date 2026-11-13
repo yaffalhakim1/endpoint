@@ -94,6 +94,7 @@ func (a *App) DeleteEnvironment() {
 		return
 	}
 
+	a.snapshot()
 	kept := make([]Environment, 0, len(project.Environments)-1)
 	for _, environment := range project.Environments {
 		if environment.ID != active.ID {

@@ -17,12 +17,23 @@ func (a *App) installMenu() {
 			{Label: "Project Variables…", Accelerator: "CmdOrCtrl+E", Click: a.onMenu(func() {
 				a.varsOpen = true
 			})},
+			{Label: "HTTP Options…", Accelerator: "CmdOrCtrl+,", Click: a.onMenu(func() {
+				a.optionsOpen = true
+			})},
+			{Type: mygo.MenuItemSeparator},
+			{Label: "Import from curl…", Accelerator: "CmdOrCtrl+I", Click: a.onMenu(func() {
+				a.importOpen = true
+			})},
+			{Label: "Export workspace…", Click: a.onMenu(a.exportWorkspace)},
 			{Type: mygo.MenuItemSeparator},
 			{Label: "Rename…", Accelerator: "CmdOrCtrl+R", Click: a.onMenu(func() {
 				a.openRenameRequest(a.folder, a.index)
 			})},
 			{Label: "Delete Request…", Accelerator: "CmdOrCtrl+Backspace", Click: a.onMenu(func() {
 				a.openDeleteRequest(a.folder, a.index)
+			})},
+			{Label: "Undo Delete", Accelerator: "CmdOrCtrl+Shift+Z", Click: a.onMenu(func() {
+				a.undoLast()
 			})},
 			{Type: mygo.MenuItemSeparator},
 			{Role: mygo.RoleClose},
@@ -41,6 +52,10 @@ func (a *App) installMenu() {
 			{Label: "Cancel Request", Accelerator: "CmdOrCtrl+.", Click: a.onMenu(a.Cancel)},
 			{Label: "Copy Response", Accelerator: "CmdOrCtrl+Shift+C", Click: a.onMenu(func() {
 				a.copyRequested = true
+			})},
+			{Label: "Save Response…", Accelerator: "CmdOrCtrl+S", Click: a.onMenu(a.saveResponse)},
+			{Label: "Copy as cURL", Click: a.onMenu(func() {
+				a.curlRequested = true
 			})},
 		}},
 		{Label: "View", Submenu: []*mygo.MenuItem{

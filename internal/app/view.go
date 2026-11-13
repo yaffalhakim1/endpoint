@@ -33,11 +33,23 @@ func (a *App) View(c *ui.Context) {
 		}()
 	}
 
+	// A delete just happened: offer the way back while it is still fresh.
+	if a.pendingUndo != "" {
+		what := a.pendingUndo
+		a.pendingUndo = ""
+		a.offerUndo(c, what)
+	}
+
 	// A command from the menu bar that needs the view runs here.
 	if a.copyRequested {
 		a.copyRequested = false
 		c.WriteClipboard(a.copyText())
 		c.Toast("Copied")
+	}
+
+	if a.curlRequested {
+		a.curlRequested = false
+		a.copyAsCurl(c)
 	}
 
 	// No background here: the window's material shows through the sidebar,
@@ -51,6 +63,9 @@ func (a *App) View(c *ui.Context) {
 		})
 		a.dialogs(c, t)
 		a.varsDialog(c, t)
+		a.httpDialog(c, t)
+		a.importDialog(c, t)
+		a.updateDialog(c, t)
 		a.alertDialog(c, t)
 	})
 }
@@ -187,6 +202,16 @@ func (a *App) appMenu(c *ui.Context, t *ui.Theme) {
 			}
 			if m.Item("Project Variables…").Chosen() {
 				a.varsOpen = true
+			}
+			if m.Item("HTTP Options…").Chosen() {
+				a.optionsOpen = true
+			}
+			m.Separator()
+			if m.Item("Import from curl…").Chosen() {
+				a.importOpen = true
+			}
+			if m.Item("Export workspace…").Chosen() {
+				a.exportWorkspace()
 			}
 			m.Separator()
 			if m.Item("About Endpoint").Chosen() {

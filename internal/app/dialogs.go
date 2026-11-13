@@ -115,14 +115,18 @@ func (a *App) confirm() {
 		a.RenameProject(name)
 	case dialogDeleteProject:
 		a.DeleteProject()
+		a.pendingUndo = "Project"
 	case dialogRenameEnv:
 		a.RenameEnvironment(name)
 	case dialogDeleteEnv:
 		a.DeleteEnvironment()
+		a.pendingUndo = "Environment"
 	case dialogDeleteRequest:
 		a.deleteRequest(a.dialogFolder, a.dialogIndex)
+		a.pendingUndo = "Request"
 	case dialogDeleteFolder:
 		a.deleteFolder(a.dialogFolder)
+		a.pendingUndo = "Folder"
 	}
 	a.dialog = dialogNone
 	a.dialogOpen = false
@@ -174,6 +178,7 @@ func (a *App) deleteRequest(folder, index int) {
 	}
 
 	id := a.draft.ID
+	a.snapshot()
 	a.detach()
 	project.Folders[folder].Requests = append(requests[:index], requests[index+1:]...)
 	a.save()
@@ -189,6 +194,7 @@ func (a *App) deleteFolder(folder int) {
 	}
 
 	id := a.draft.ID
+	a.snapshot()
 	a.detach()
 	project.Folders = append(project.Folders[:folder], project.Folders[folder+1:]...)
 	a.save()
@@ -208,6 +214,7 @@ func (a *App) moveRequest(folder, index, to int) {
 	}
 
 	moved := requests[index]
+	a.snapshot()
 	a.detach()
 	project.Folders[folder].Requests = append(requests[:index], requests[index+1:]...)
 

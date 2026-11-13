@@ -62,6 +62,22 @@ type Folder struct {
 	Requests []Request `json:"requests"`
 }
 
+// HTTPOptions is how a project reaches the network. Every field is written
+// so that its zero value is the safe default.
+type HTTPOptions struct {
+	// TimeoutSeconds ends a call that hangs: 0 waits as long as the server
+	// takes.
+	TimeoutSeconds int `json:"timeoutSeconds,omitempty"`
+	// NoRedirects stops at the first 3xx, so its Location shows through.
+	NoRedirects bool `json:"noRedirects,omitempty"`
+	// InsecureTLS accepts a certificate nothing signed, as a dev host has.
+	InsecureTLS bool `json:"insecureTLS,omitempty"`
+	// NoCookies forgets what the server sets between calls.
+	NoCookies bool `json:"noCookies,omitempty"`
+	// Proxy overrides the environment, as http://127.0.0.1:8080.
+	Proxy string `json:"proxy,omitempty"`
+}
+
 // Environment is a named set of variables, as dev, staging and production
 // are, one of which is active at a time.
 type Environment struct {
@@ -77,6 +93,7 @@ type Project struct {
 	ID           string        `json:"id"`
 	Name         string        `json:"name"`
 	Auth         Auth          `json:"auth"`
+	HTTP         HTTPOptions   `json:"http,omitempty"`
 	Vars         []Pair        `json:"vars,omitempty"`
 	Environments []Environment `json:"environments,omitempty"`
 	ActiveEnv    string        `json:"activeEnv,omitempty"`

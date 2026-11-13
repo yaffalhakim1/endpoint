@@ -56,6 +56,7 @@ func (a *App) DeleteProject() {
 		return // the last project stays: the app always has one
 	}
 
+	a.snapshot()
 	kept := make([]Project, 0, len(a.doc.Projects)-1)
 	for _, other := range a.doc.Projects {
 		if other.ID != project.ID {

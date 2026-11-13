@@ -83,6 +83,12 @@ func (a *App) answeredResponse(c *ui.Context, t *ui.Theme) {
 				c.WriteClipboard(a.copyText())
 				c.Toast("Copied")
 			}
+			if ui.Button(c, "Save").Clicked() {
+				a.saveResponse()
+			}
+			if ui.Button(c, "cURL").Tooltip("Copy this request as a curl command").Clicked() {
+				a.copyAsCurl(c)
+			}
 			if a.responseTab == 0 && ui.Button(c, "Wrap").Clicked() {
 				a.wrap = !a.wrap
 			}

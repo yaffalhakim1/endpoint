@@ -1,9 +1,13 @@
 {
   "name": "Endpoint",
   "identifier": "com.example.endpoint",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "license": "MIT",
   "main": "./cmd/endpoint",
   "out": "build",
+  "updates": {
+    "publicKey": "Oaf3j/F6FnyP5T7n0T6nWBptP6T1nPHL2iYvmvz/dYk=",
+    "github": "yaffalhakim1/endpoint"
+  },
   "linux": { "webview": false }
 }

@@ -37,6 +37,8 @@ var authLabels = []string{"None", "Bearer", "Basic", "API key", "Inherit"}
 type App struct {
 	dir    string
 	win    *mygo.Window
+	// client is the one the active project's options built, kept so its
+	// cookies and connections survive between calls.
 	client *http.Client
 
 	doc           *Document
@@ -64,6 +66,12 @@ type App struct {
 
 	sidebarHidden bool
 	copyRequested bool
+	curlRequested bool
+
+	// undo holds the documents before the last edits, newest last, and
+	// pendingUndo names what was just deleted, for the toast.
+	undo        []*Document
+	pendingUndo string
 
 	// recovered says what happened to the workspace when it opened, and
 	// alert is the message the window shows about it.
@@ -80,8 +88,18 @@ type App struct {
 	// cancel stops the call in flight. varsOpen shows the project's
 	// variables, and filter narrows the rail.
 	cancel   context.CancelFunc
-	varsOpen bool
-	filter   string
+	varsOpen    bool
+	optionsOpen bool
+	importOpen  bool
+	importText  string
+	importError string
+
+	// updateOpen offers a newer version, once it was found.
+	updateOpen  bool
+	update      *mygo.Update
+	updateNotes string
+	updateError string
+	filter      string
 
 	tab      int
 	bodyType int
@@ -209,9 +227,18 @@ func (a *App) startSend() {
 
 	draft := cloneRequest(a.draft)
 	inherit, vars := Auth{}, []Pair{}
+	options := workspace.HTTPOptions{}
 	if project := a.doc.ActiveProject(); project != nil {
-		inherit, vars = project.Auth, project.Variables()
+		inherit, vars, options = project.Auth, project.Variables(), project.HTTP
 	}
+
+	client, err := request.Build(options, a.client)
+	if err != nil {
+		a.state = StateFailed
+		a.result = Result{Err: err.Error()}
+		return
+	}
+	a.client = client
 
 	ctx, cancel := context.WithCancel(context.Background())
 	a.cancel = cancel
@@ -220,7 +247,7 @@ func (a *App) startSend() {
 	a.save()
 
 	go func() {
-		result := request.Send(ctx, draft, inherit, vars, a.client)
+		result := request.Send(ctx, draft, inherit, vars, client)
 		a.win.Update(func() {
 			a.cancel = nil
 			a.answer = nil // a new answer gets a new buffer, and its folding
@@ -393,3 +420,7 @@ func (a *App) SetWindow(win *mygo.Window) { a.win = win }
 
 // InstallMenu puts every command in the menu bar.
 func (a *App) InstallMenu() { a.installMenu() }
+
+// CheckForUpdate asks for a newer build in the background, and offers it when
+// there is one.
+func (a *App) CheckForUpdate() { a.checkForUpdate() }

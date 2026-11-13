@@ -38,3 +38,13 @@ The first build anyone else can run.
 
 - The app builds again: `main` in `mygo.json` is `./cmd/endpoint`, which the
   CLI reads as a package rather than a standard library import
+
+## 0.4.0
+
+- HTTP options per project: timeout, redirects, a self-signed certificate, a
+  proxy, and cookies kept between calls with a jar
+- Undo for every destructive edit, with a toast that offers it, and the
+  document snapshots behind it
+- Import from curl, and export the workspace as readable JSON
+- Save a response, or copy the request as a curl command
+- Auto-updates from signed manifests, checked at launch

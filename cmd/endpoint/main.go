@@ -39,6 +39,7 @@ func main() {
 		})
 		window.SetWindow(win)
 		window.InstallMenu()
+		window.CheckForUpdate()
 	})
 
 	if err := mygo.App.Run(); err != nil {
