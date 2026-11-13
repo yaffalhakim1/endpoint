@@ -6,7 +6,7 @@ A desktop HTTP client. Go and native UI, no webview.
 
 ## Why another one
 
-Electron clients ship a browser to draw a form. Endpoint draws its own window on the GPU, so it starts in about a third of a second and sits near 40 MB. There is no Chromium inside.
+Electron clients ship a browser to draw a form. Endpoint draws its own window on the GPU, so it starts in about a third of a second and holds about 78 MB resident. There is no Chromium inside.
 
 Windows, macOS and Linux. Same binary size, same speed.
 
@@ -24,7 +24,7 @@ Read the answer. Status, timing and size at a glance, the body in a folding code
 
 ## 简体中文
 
-Endpoint 是一个桌面 HTTP 客户端，用 Go 编写，自绘界面。它不打包浏览器，启动约三分之一秒，内存约 40 MB。
+Endpoint 是一个桌面 HTTP 客户端，用 Go 编写，自绘界面。它不打包浏览器，启动约三分之一秒，常驻内存约 78 MB。
 
 支持项目、文件夹与请求，支持环境变量（`{{baseUrl}}`）、五种认证方式、参数、请求头、JSON / 表单 / 文件请求体。响应可以折叠查看，也能查看所有响应头。
 
