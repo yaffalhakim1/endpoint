@@ -35,8 +35,8 @@ var authLabels = []string{"None", "Bearer", "Basic", "API key", "Inherit"}
 
 // App holds the document, the draft the window edits and the last answer.
 type App struct {
-	dir    string
-	win    *mygo.Window
+	dir string
+	win *mygo.Window
 	// client is the one the active project's options built, kept so its
 	// cookies and connections survive between calls.
 	client *http.Client
@@ -87,7 +87,7 @@ type App struct {
 
 	// cancel stops the call in flight. varsOpen shows the project's
 	// variables, and filter narrows the rail.
-	cancel   context.CancelFunc
+	cancel      context.CancelFunc
 	varsOpen    bool
 	optionsOpen bool
 	importOpen  bool
