@@ -32,6 +32,9 @@ func (a *App) requestBar(c *ui.Context, t *ui.Theme) {
 				Placeholder("https://api.example.com/v1/users")
 			url.Label("Request URL")
 			if url.Changed() {
+				// A pasted address often carries its query: move those pairs
+				// into the Params tab, where they can be edited.
+				a.absorbQuery()
 				a.touch(c.Now())
 			}
 

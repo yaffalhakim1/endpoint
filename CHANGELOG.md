@@ -53,3 +53,8 @@ The first build anyone else can run.
 
 - The theme choice is remembered: light, dark or follow the system survives a
   restart, in a small preferences file beside the workspace
+
+## 0.4.2
+
+- A URL pasted with its query fills the Params tab: the address keeps the
+  path, and each pair becomes an editable row, decoded, in the order written
