@@ -94,6 +94,7 @@ type App struct {
 	showSecret  bool
 	importText  string
 	importError string
+	importKind  int // 0 curl, 1 Postman JSON
 
 	// updateOpen offers a newer version, once it was found.
 	updateOpen  bool

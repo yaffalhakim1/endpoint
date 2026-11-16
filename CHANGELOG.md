@@ -72,3 +72,9 @@ The first build anyone else can run.
   when auth is set
 - The Params tab has an empty state, and a secret in Auth has a reveal
 - Sidebar and content now differ by the design's own tints, not a hairline
+
+## 0.5.1
+
+- Import a Postman collection: its folders, requests, variables and auth
+  become a project, with nested folders flattened to the two levels the rail
+  shows
