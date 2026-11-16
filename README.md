@@ -71,7 +71,7 @@ resources/         the app icon
 
 ## Status
 
-0.2.0. It sends requests, keeps your work, and survives a damaged workspace. Signing and auto-updates come next, so the first launch on each platform shows a warning.
+0.5.1. It sends requests, keeps your work, survives a damaged workspace, and updates itself. The builds are unsigned, so the first launch on each platform shows a warning.
 
 ## Licence
 
