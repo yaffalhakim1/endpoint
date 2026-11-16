@@ -4,15 +4,17 @@ package app
 // like. A view asks for "hairline" or "textSubtle"; the value behind the role
 // changes with the appearance, so no view holds a colour of its own.
 //
-// The vocabulary is Cloudflare's Kumo: canvas and base for the two surfaces,
-// hairline for the line between regions, fill for a wash over a control, and
-// the intent colours with their tints. The values are Apple's, kept.
+// The palette is the one from the design reference: indigo on white in light,
+// neutral near-black in dark, with a code surface that sits one step away from
+// the pane so data reads as data.
 
 import "github.com/egoist/mygo/ui"
 
 type tokens struct {
-	Canvas ui.Color // the window behind the panes
+	Canvas ui.Color // the rail, behind the content
 	Base   ui.Color // the pane content sits on
+	Code   ui.Color // the surface of a code editor
+	Field  ui.Color // text fields and inputs
 	Fill   ui.Color // the wash under a hovered or pressed control
 
 	Hairline ui.Color // the line between regions
@@ -33,52 +35,56 @@ type tokens struct {
 	Info    ui.Color
 	Danger  ui.Color
 
-	Focus ui.Color // a neutral ring, as Kumo draws it
+	Focus ui.Color
 }
 
 func tokensFor(dark bool) tokens {
 	if dark {
 		return tokens{
-			Canvas:        ui.Hex("#1c1c1e"),
-			Base:          ui.Hex("#232325"),
-			Fill:          ui.Hex("#2c2c2e"),
-			Hairline:      ui.Hex("#38383a"),
-			Line:          ui.Hex("#2c2c2e"),
-			TextDefault:   ui.Hex("#f5f5f7"),
-			TextSubtle:    ui.Hex("#98989d"),
-			TextInactive:  ui.Hex("#6e6e73"),
-			Accent:        ui.Hex("#e8172c"),
-			AccentHover:   ui.Hex("#ff3b4f"),
-			AccentPressed: ui.Hex("#d91f33"),
+			Canvas:        ui.Hex("#1d1d21"),
+			Base:          ui.Hex("#18181b"),
+			Code:          ui.Hex("#131316"),
+			Field:         ui.Hex("#202025"),
+			Fill:          ui.Hex("#2a2a31"),
+			Hairline:      ui.Hex("#2c2c33"),
+			Line:          ui.Hex("#232329"),
+			TextDefault:   ui.Hex("#ececf0"),
+			TextSubtle:    ui.Hex("#a1a1ad"),
+			TextInactive:  ui.Hex("#8a8a96"),
+			Accent:        ui.Hex("#4f46e5"),
+			AccentHover:   ui.Hex("#6366f1"),
+			AccentPressed: ui.Hex("#4338ca"),
 			AccentText:    ui.Hex("#ffffff"),
-			Selection:     ui.Hex("#e8172c").Alpha(0.20),
-			Success:       ui.Hex("#30d158"),
-			Warning:       ui.Hex("#ff9f0a"),
-			Info:          ui.Hex("#409cff"),
-			Danger:        ui.Hex("#ff453a"),
-			Focus:         ui.Hex("#f5f5f7"),
+			Selection:     ui.RGBA(129, 140, 248, 0.16),
+			Success:       ui.Hex("#5be0b0"),
+			Warning:       ui.Hex("#fbbf24"),
+			Info:          ui.Hex("#7cb4ff"),
+			Danger:        ui.Hex("#f87171"),
+			Focus:         ui.Hex("#aab4ff"),
 		}
 	}
 
 	return tokens{
-		Canvas:        ui.Hex("#f5f5f7"),
+		Canvas:        ui.Hex("#f6f6f8"),
 		Base:          ui.Hex("#ffffff"),
-		Fill:          ui.Hex("#ebebed"),
-		Hairline:      ui.Hex("#d2d2d7"),
-		Line:          ui.Hex("#e6e6ea"),
-		TextDefault:   ui.Hex("#1d1d1f"),
-		TextSubtle:    ui.Hex("#6e6e73"),
-		TextInactive:  ui.Hex("#aeaeb2"),
-		Accent:        ui.Hex("#e8172c"),
-		AccentHover:   ui.Hex("#ff3b4f"),
-		AccentPressed: ui.Hex("#d91f33"),
+		Code:          ui.Hex("#f7f7fa"),
+		Field:         ui.Hex("#ffffff"),
+		Fill:          ui.Hex("#ececf1"),
+		Hairline:      ui.Hex("#e3e3ea"),
+		Line:          ui.Hex("#ededf2"),
+		TextDefault:   ui.Hex("#18181b"),
+		TextSubtle:    ui.Hex("#52525b"),
+		TextInactive:  ui.Hex("#6b6b76"),
+		Accent:        ui.Hex("#4f46e5"),
+		AccentHover:   ui.Hex("#4338ca"),
+		AccentPressed: ui.Hex("#3730a3"),
 		AccentText:    ui.Hex("#ffffff"),
-		Selection:     ui.Hex("#e8172c").Alpha(0.20),
-		Success:       ui.Hex("#17784a"),
-		Warning:       ui.Hex("#c93400"),
-		Info:          ui.Hex("#0071e3"),
-		Danger:        ui.Hex("#d70015"),
-		Focus:         ui.Hex("#1d1d1f"),
+		Selection:     ui.RGBA(79, 70, 229, 0.10),
+		Success:       ui.Hex("#166534"),
+		Warning:       ui.Hex("#92400e"),
+		Info:          ui.Hex("#1d4ed8"),
+		Danger:        ui.Hex("#b91c1c"),
+		Focus:         ui.Hex("#4f46e5"),
 	}
 }
 

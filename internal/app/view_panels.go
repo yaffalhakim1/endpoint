@@ -13,7 +13,7 @@ import (
 // jsonEditor is the request body in the toolkit's code editor, the one place a
 // text area was not enough: JSON wants its tokens coloured and its lines
 // counted. The buffer is rebuilt when another request is loaded.
-func (a *App) jsonEditor(c *ui.Context) {
+func (a *App) jsonEditor(c *ui.Context, t *ui.Theme) {
 	if a.body == nil || a.bodyFor != a.draft.ID {
 		buffer := editor.NewBuffer(a.draft.JSON)
 		if language := editor.LanguageFor("body.json"); language != nil {
@@ -22,6 +22,8 @@ func (a *App) jsonEditor(c *ui.Context) {
 		a.body = &editor.State{Buffer: buffer, LineNumbers: editor.LineNumbersOn, SoftWrap: true}
 		a.bodyFor = a.draft.ID
 	}
+
+	a.body.Theme = editorTheme(t, a.tok)
 
 	before := a.body.Buffer.Version()
 	editor.View(c, a.body).FillWidth().Height(148)
@@ -51,7 +53,7 @@ func (a *App) bodyPanel(c *ui.Context, t *ui.Theme) {
 
 	switch a.bodyType {
 	case 0:
-		a.jsonEditor(c)
+		a.jsonEditor(c, t)
 	case 1:
 		a.pairEditor(c, t, &a.draft.Form, "value")
 		a.fileChip(c, t)
@@ -153,20 +155,6 @@ func (a *App) authPanel(c *ui.Context, t *ui.Theme) {
 			ui.Text(c, a.inheritNote()).FontSize(12.5).TextColor(t.TextMuted)
 		default:
 			ui.Text(c, "This request carries no credentials.").FontSize(12.5).TextColor(t.TextMuted)
-		}
-	})
-}
-
-func (a *App) authField(c *ui.Context, t *ui.Theme, label string, value *string, secret bool) {
-	ui.Column(c).Gap(5).Children(func() {
-		ui.Text(c, label).FontSize(11.5).TextColor(t.TextMuted)
-		input := ui.TextInput(c, value).Font(mono).FontSize(12.5).MaxWidth(440)
-		input.Label(label)
-		if secret {
-			input.Password()
-		}
-		if input.Changed() {
-			a.touch(c.Now())
 		}
 	})
 }

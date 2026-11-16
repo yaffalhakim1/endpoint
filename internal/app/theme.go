@@ -52,7 +52,7 @@ func textScale(c *ui.Context) float32 {
 
 // applyTokens hands the roles to the widgets, which know nothing of them.
 func applyTokens(t *ui.Theme, tok tokens, scale float32) {
-	t.Background = tok.Canvas
+	t.Background = tok.Base
 	t.Surface = tok.Base
 	t.SurfaceHover = tok.Fill
 	t.SurfacePressed = tok.Fill
@@ -82,7 +82,7 @@ func applyTokens(t *ui.Theme, tok tokens, scale float32) {
 
 	t.FocusRingWidth = 2
 	t.FocusRingOffset = 1
-	t.Radius = 7
+	t.Radius = 8
 	t.FontSize = 13 * scale
 	t.Font = uiFont
 	t.Spacing = 4

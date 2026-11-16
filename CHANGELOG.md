@@ -58,3 +58,17 @@ The first build anyone else can run.
 
 - A URL pasted with its query fills the Params tab: the address keeps the
   path, and each pair becomes an editable row, decoded, in the order written
+
+## 0.5.0
+
+- The palette is rebuilt from the design reference: indigo accent on white in
+  light, neutral near-black in dark, and a code surface one step off the pane
+  so a body reads as data
+- A query parameter decides nothing about the pane: both code areas sit on the
+  code surface instead of the window canvas
+- The window says when a request names a variable the project does not define,
+  with a button to fix it
+- The tabs carry what the design puts beside them: a header count, and a dot
+  when auth is set
+- The Params tab has an empty state, and a secret in Auth has a reveal
+- Sidebar and content now differ by the design's own tints, not a hairline

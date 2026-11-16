@@ -83,6 +83,7 @@ func (a *App) content(c *ui.Context, t *ui.Theme) {
 	content.Children(func() {
 		a.titleBar(c, t)
 		a.requestBar(c, t)
+		a.unresolvedBanner(c, t)
 		ui.Row(c).
 			Height(38).
 			PaddingX(8).
@@ -90,7 +91,7 @@ func (a *App) content(c *ui.Context, t *ui.Theme) {
 			BorderWidth(0, 0, 1, 0).
 			BorderColor(t.Border).
 			Children(func() {
-				ui.Tabs(c, &a.tab, "Params", "Headers", "Auth", "Body")
+				ui.Tabs(c, &a.tab, a.tabLabels()...)
 			})
 		// A divider the user can move: the request pane takes the room the
 		// answer does not need.

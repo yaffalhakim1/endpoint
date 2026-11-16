@@ -91,6 +91,7 @@ type App struct {
 	varsOpen    bool
 	optionsOpen bool
 	importOpen  bool
+	showSecret  bool
 	importText  string
 	importError string
 

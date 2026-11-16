@@ -1,7 +1,7 @@
 {
   "name": "Endpoint",
   "identifier": "com.example.endpoint",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "license": "MIT",
   "main": "./cmd/endpoint",
   "out": "build",

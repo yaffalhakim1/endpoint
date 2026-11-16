@@ -57,6 +57,14 @@ func (a *App) panel(c *ui.Context, t *ui.Theme) {
 		Children(func() {
 			switch a.tab {
 			case 0:
+				if len(a.draft.Params) == 0 {
+					ui.Column(c).Padding(24, 16).Gap(2).Children(func() {
+						ui.Text(c, "No query parameters").FontSize(12.5).Bold()
+						ui.Text(c, "This request sends no query string. Add one to filter or paginate.").
+							FontSize(12.5).
+							TextColor(t.TextMuted)
+					})
+				}
 				a.pairEditor(c, t, &a.draft.Params, "value")
 			case 1:
 				a.pairEditor(c, t, &a.draft.Headers, "value")

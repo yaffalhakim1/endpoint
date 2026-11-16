@@ -110,7 +110,7 @@ func (a *App) answeredResponse(c *ui.Context, t *ui.Theme) {
 		return
 	}
 
-	a.responseEditor(c)
+	a.responseEditor(c, t)
 }
 
 func (a *App) statusBadge(c *ui.Context, t *ui.Theme, result Result, failed bool) {
@@ -202,7 +202,7 @@ func (a *App) headerText() string {
 // responseEditor shows the answer in the toolkit's code editor, read only:
 // JSON folds by its braces, and the tokens keep their colours. A new answer
 // or a new wrapping builds a new buffer.
-func (a *App) responseEditor(c *ui.Context) {
+func (a *App) responseEditor(c *ui.Context, t *ui.Theme) {
 	if a.answer == nil {
 		buffer := editor.NewBuffer(a.bodyText())
 		if language := editor.LanguageFor("body.json"); language != nil {
@@ -216,5 +216,6 @@ func (a *App) responseEditor(c *ui.Context) {
 		}
 	}
 
+	a.answer.Theme = editorTheme(t, a.tok)
 	editor.View(c, a.answer).Grow(1).FillWidth()
 }

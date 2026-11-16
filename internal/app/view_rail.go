@@ -42,7 +42,7 @@ func (a *App) rail(c *ui.Context, t *ui.Theme) {
 	// Over the window's material the sidebar paints nothing, as a macOS
 	// sidebar is translucent; without it, it takes the window's colour.
 	if !c.Vibrancy() {
-		rail.Background(t.Background)
+		rail.Background(a.tok.Canvas)
 	}
 
 	rail.Transition(ui.ElementTransition{
